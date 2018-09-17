@@ -86,7 +86,7 @@ CREATE TABLE DOSSIERPATIENT
     nomP VARCHAR2(50) NOT NULL,
 	prenomP VARCHAR2(50) NOT NULL,
 	genre  VARCHAR2(1),
-	numAS NUMBER(9),
+	numAS VARCHAR2(20),
 	dateNaiss DATE,
 	dateC DATE,
 	matricule NUMBER(10),
