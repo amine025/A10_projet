@@ -1,0 +1,133 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ * Author:  1895101
+ * Created: 2018-09-17
+ */
+
+--1
+CREATE TABLE ORDONNANCE
+(
+	numOrd NUMBER(10),
+	recommandations VARCHAR2(250),
+	typeO VARCHAR2(50),
+	dateC DATE,
+	CONSTRAINT numOrd_ORDONNANCE_pk PRIMARY KEY (numOrd),
+	CONSTRAINT typeO_ORDONNANCE_ck CHECK  (UPPER(typeO IN ('CHIRURGIE','MEDICAMENTS')))
+);
+
+--2
+CREATE TABLE SPECIALITE
+(
+	code NUMBER(10),
+    titre VARCHAR2(50) NOT NULL,
+	description VARCHAR2(250),
+	CONSTRAINT code_SPECIALITE_PK PRIMARY KEY (code)
+);
+
+--3
+CREATE TABLE CATEGORIES
+(
+	IdCategorie NUMBER(10),
+	nom VARCHAR2(50) NOT NULL,
+	Description VARCHAR2(250),
+	CONSTRAINT idCategorie_CATEGORIES_PK PRIMARY KEY (idCategorie)
+);
+
+--4
+CREATE TABLE MEDICAMENT
+( 	
+	idMed NUMBER(10),
+	nomMed VARCHAR2(50) NOT NULL,
+	prix NUMBER (6,2) DEFAULT 0,
+	categorie NUMBER(10),
+	CONSTRAINT idMed_MEDICAMENT_PK PRIMARY KEY (idMed),
+	CONSTRAINT categorie_MEDICAMENT_FK FOREIGN KEY (categorie) 
+		REFERENCES CATEGORIES(idCategorie),
+	CONSTRAINT nomMed_categorie_MEDICAMENT_UQ UNIQUE (nomMed, categorie),
+	CONSTRAINT prix_ck CHECK (prix > = 0)
+);
+
+--5
+CREATE TABLE DOCTEUR
+(
+	matricule NUMBER(10),
+	nomM VARCHAR2(50) NOT NULL,
+	prenomM VARCHAR2(50) NOT NULL,
+	specialite NUMBER(10),
+	ville VARCHAR2(50),
+	adresse VARCHAR2(100),
+	niveau VARCHAR2(50),
+	nbrPatients NUMBER(3) DEFAULT 0,
+	CONSTRAINT matricule_DOCTEUR_pk PRIMARY KEY (matricule),
+	CONSTRAINT specialite_DOCTEUR_fk FOREIGN KEY (specialite)
+		REFERENCES SPECIALITE (code),
+	CONSTRAINT niveau_DOCTEUR_ck CHECK (UPPER(niveau IN ('ETUDIANT','INTERNE','DOCTEUR'))),
+	CONSTRAINT nbrPatients_DOCTEUR CHECK (nbrPatients > = 0)
+);
+
+--6
+CREATE TABLE DOSSIERPATIENT 	
+(
+    numDos NUMBER(10),
+    nomP VARCHAR2(50) NOT NULL,
+	prenomP VARCHAR2(50) NOT NULL,
+	genre  VARCHAR2(1),
+	numAS NUMBER(9),
+	dateNaiss DATE,
+	dateC DATE,
+	matricule NUMBER(10),
+	CONSTRAINT numDos_DOSSIERPATIENT_pk PRIMARY KEY (numDos),
+	CONSTRAINT matricule_DOSSIERPATIENT_fk FOREIGN KEY (matricule)
+		REFERENCES DOCTEUR (matricule),
+	CONSTRAINT numAS_DOSSIERPATIENT_uq UNIQUE (numAS),
+	CONSTRAINT genre_DOSSIERPATIENT_ck CHECK (upper(genre IN ('M', 'F')))
+);
+
+
+--7
+CREATE TABLE CONSULTATION
+(
+	CodeDocteur NUMBER(10),
+	numDos NUMBER(10),
+	dateC DATE,
+	diagonastic VARCHAR2(250),
+	numOrd NUMBER(10),
+	CONSTRAINT CONSULTATION_pk PRIMARY KEY (codeDocteur, numDos, dateC),
+	CONSTRAINT codeDocteur_CONSULTATION_fk FOREIGN KEY (codeDocteur)
+		REFERENCES DOCTEUR (matricule),
+	CONSTRAINT numDos_CONSULTATION_fk FOREIGN KEY (numDos)
+		REFERENCES DOSSIERPATIENT (numDos)
+	CONSTRAINT numOrd_CONSULTATION_fk FOREIGN KEY (numOrd)
+		REFERENCES ORDONNANCE (numOrd)	
+);
+
+--8
+CREATE TABLE ORDONNANCECHIRURGIE
+(
+   numOrd NUMBER(10),
+   rang   NUMBER(2),
+   nomChirurgie VARCHAR2(50),
+   CONSTRAINT numOrd_rang_PK PRIMARY KEY (numOrd,rang),
+   CONSTRAINT numOrd_ORDONNANCECHIRURGIE_fk FOREIGN KEY (numOrd)
+           REFERENCES ORDONNANCE(numOrd)
+);
+
+--9
+CREATE TABLE ORDONNANCEMEDICAMENTS
+(
+	numOrd NUMBER(10),
+	idMed NUMBER(10),
+	nbBoites NUMBER(2) DEFAULT 0,
+	CONSTRAINT numOrd_idMed_PK PRIMARY KEY (numOrd,idMed),
+	CONSTRAINT numOrd_ORDONNANCEMEDICAMENTS_fk FOREIGN KEY (numOrd)
+	      REFERENCES ORDONNANCE(numOrd),
+	CONSTRAINT idMed_ORDONNANCEMEDICAMENTS_fk FOREIGN KEY (idMed)
+	      REFERENCES MEDICAMENT(idMed),	  
+	CONSTRAINT nbBoites_ck CHECK (nbBoites > = 0)
+
+);
+
