@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 /**
- * Author:  1895040
- * Created: 2018-09-17
+* CREATION 17/09/2018
+* AUTHORS: AMINE GHODBANE, AMINE TARHOUNI,ALEXANDER TOULIATOS, GIAN GABRIELE CIAMPA
  */
 
 -- INSERTION CATEGORIES
