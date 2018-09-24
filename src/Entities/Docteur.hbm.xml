@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-09-24 15:15:25 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entities.Docteur" table="DOCTEUR" schema="A10TEAM2" optimistic-lock="version">
+        <id name="matricule" type="long">
+            <column name="MATRICULE" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="specialite" class="Entities.Specialite" fetch="select">
+            <column name="SPECIALITE" precision="10" scale="0" />
+        </many-to-one>
+        <property name="nomm" type="string">
+            <column name="NOMM" length="50" not-null="true" />
+        </property>
+        <property name="prenomm" type="string">
+            <column name="PRENOMM" length="50" not-null="true" />
+        </property>
+        <property name="ville" type="string">
+            <column name="VILLE" length="50" />
+        </property>
+        <property name="adresse" type="string">
+            <column name="ADRESSE" length="100" />
+        </property>
+        <property name="niveau" type="string">
+            <column name="NIVEAU" length="50" />
+        </property>
+        <property name="nbrpatients" type="java.lang.Short">
+            <column name="NBRPATIENTS" precision="3" scale="0" />
+        </property>
+        <set name="dossierpatients" table="DOSSIERPATIENT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MATRICULE" precision="10" scale="0" />
+            </key>
+            <one-to-many class="Entities.Dossierpatient" />
+        </set>
+        <set name="consultations" table="CONSULTATION" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CODEDOCTEUR" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="Entities.Consultation" />
+        </set>
+    </class>
+</hibernate-mapping>

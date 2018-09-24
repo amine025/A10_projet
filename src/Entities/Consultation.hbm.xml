@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-09-24 15:15:25 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entities.Consultation" table="CONSULTATION" schema="A10TEAM2" optimistic-lock="version">
+        <composite-id name="id" class="Entities.ConsultationId">
+            <key-property name="codedocteur" type="long">
+                <column name="CODEDOCTEUR" precision="10" scale="0" />
+            </key-property>
+            <key-property name="numdos" type="long">
+                <column name="NUMDOS" precision="10" scale="0" />
+            </key-property>
+            <key-property name="datec" type="date">
+                <column name="DATEC" length="7" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="ordonnance" class="Entities.Ordonnance" fetch="select">
+            <column name="NUMORD" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="docteur" class="Entities.Docteur" update="false" insert="false" fetch="select">
+            <column name="CODEDOCTEUR" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="diagonastic" type="string">
+            <column name="DIAGONASTIC" length="250" />
+        </property>
+    </class>
+</hibernate-mapping>

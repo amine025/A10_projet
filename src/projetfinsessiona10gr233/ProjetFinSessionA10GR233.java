@@ -5,9 +5,14 @@
  */
 package projetfinsessiona10gr233;
 
+import DAO.ConsultationDAO;
+
 /**
  *
- * @author 1895101
+ * @author Gian Gabriele Ciampa,
+ *         Amine Tarhouni
+ *         Amine Godhbane
+ *         Alexander Touliatos
  */
 public class ProjetFinSessionA10GR233 {
 
@@ -16,7 +21,11 @@ public class ProjetFinSessionA10GR233 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.print("Bonjour");
+        
+        // Afficher le nombre de consultations par années
+        ConsultationDAO.nbConsultationsParAnnee();
+        
+        HibernateUtil.getSessionFactory().close();
     }
     
 }

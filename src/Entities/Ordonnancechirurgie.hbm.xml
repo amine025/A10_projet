@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-09-24 15:15:25 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entities.Ordonnancechirurgie" table="ORDONNANCECHIRURGIE" schema="A10TEAM2" optimistic-lock="version">
+        <composite-id name="id" class="Entities.OrdonnancechirurgieId">
+            <key-property name="numord" type="long">
+                <column name="NUMORD" precision="10" scale="0" />
+            </key-property>
+            <key-property name="rang" type="byte">
+                <column name="RANG" precision="2" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="ordonnance" class="Entities.Ordonnance" update="false" insert="false" fetch="select">
+            <column name="NUMORD" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="nomchirurgie" type="string">
+            <column name="NOMCHIRURGIE" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
