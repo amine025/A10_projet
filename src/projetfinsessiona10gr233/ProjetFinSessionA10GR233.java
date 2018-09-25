@@ -20,10 +20,12 @@ public class ProjetFinSessionA10GR233 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         
         // Afficher le nombre de consultations par années
-        ConsultationDAO.nbConsultationsParAnnee();
+//        ConsultationDAO.nbConsultationsParAnnee();
+        
+        // Afficher le nombre de consultations par spécialité
+        ConsultationDAO.nbConsultationsParSpecialite();
         
         HibernateUtil.getSessionFactory().close();
     }
