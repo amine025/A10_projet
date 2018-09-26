@@ -5,15 +5,19 @@
  */
 package DAO;
 
+import Entities.Consultation;
+import Entities.ConsultationId;
 import Entities.Docteur;
 import Entities.Specialite;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
+import org.hibernate.sql.JoinType;
 import projetfinsessiona10gr233.HibernateUtil;
 
 /**
@@ -46,39 +50,23 @@ public class ConsultationDAO {
 
     public static void nbConsultationsParSpecialite() {
         session = HibernateUtil.getSessionFactory().openSession();
-
-//        // (1) Noms de toutes les spécialités
-//        Criteria criteria = session.createCriteria(Specialite.class);
-//        List<Specialite> results = criteria.list();
-//        for(Specialite specialite : results){
-//            System.out.println("Titre specialite :" +specialite.getTitre());
-//        }
-
-//        // (2) Nombre de docteurs ayant une spécialité.
-//        Criteria criteria = session.createCriteria(Specialite.class);
-//        criteria.setProjection(Projections.countDistinct("docteurs"));
-//        long result = (long)criteria.uniqueResult();
-//        System.out.println("Nombre de docteurs : " +result);
-
-//        // (3) Nombre de docteurs au total, avec ou sans spécialité
-//        Criteria criteria = session.createCriteria(Docteur.class);
-//        criteria.setProjection(Projections.countDistinct("matricule"));
-//        long result = (long)criteria.uniqueResult();
-//        System.out.println("Nombre de docteurs : " +result);
-
-        // (4) Nombre de docteurs par spécialité
-        // .CreateAlias("products", "p", NHibernate.SqlCommand.JoinType.LeftOuterJoin)
-        Criteria criteria = session.createCriteria(Docteur.class);
+      
+        Criteria criteria = session.createCriteria(Consultation.class);
+        criteria.createAlias("docteur", "doc");
+        criteria.createAlias("docteur.specialite", "spec", JoinType.LEFT_OUTER_JOIN);
         ProjectionList pList = Projections.projectionList();
-        pList.add(Projections.count("matricule"));
-        pList.add(Projections.groupProperty("specialite.code"));
+        pList.add(Projections.rowCount());
+        pList.add(Projections.groupProperty("spec.titre"));
         criteria.setProjection(pList);
         List<Object[]> result = (List)criteria.list();
         for(Object[] object : result){
-            System.out.println("Nombre de docteurs : " + object[0]);
-            System.out.println("Code de spécialité : " + object[1]);
+            System.out.println("Nombre de consultations : " + object[0]);
+            System.out.println("Titre de spécialité     : " + (object[1] != null ? object[1] : "[aucune specialité]") );
             System.out.println("********");
         }
+        
+        session.close();
+        
         
 
     }
