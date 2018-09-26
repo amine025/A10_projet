@@ -6,6 +6,7 @@
 package projetfinsessiona10gr233;
 
 import DAO.ConsultationDAO;
+import DAO.MedicamentDAO;
 
 /**
  *
@@ -25,7 +26,11 @@ public class ProjetFinSessionA10GR233 {
 //        ConsultationDAO.nbConsultationsParAnnee();
         
         // Afficher le nombre de consultations par spécialité
-        ConsultationDAO.nbConsultationsParSpecialite();
+//        ConsultationDAO.nbConsultationsParSpecialite();
+        
+        // Afficher le nombre de médicaments prescripts par docteur
+        MedicamentDAO.nbMedicamentsParDocteur();
+        
         
         HibernateUtil.getSessionFactory().close();
     }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package DAO;
 
 import Entities.Consultation;
@@ -20,10 +16,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.sql.JoinType;
 import projetfinsessiona10gr233.HibernateUtil;
 
-/**
- *
- * @author 1895040
- */
 public class ConsultationDAO {
 
     static Session session = null;
@@ -50,7 +42,7 @@ public class ConsultationDAO {
 
     public static void nbConsultationsParSpecialite() {
         session = HibernateUtil.getSessionFactory().openSession();
-      
+
         Criteria criteria = session.createCriteria(Consultation.class);
         criteria.createAlias("docteur", "doc");
         criteria.createAlias("docteur.specialite", "spec", JoinType.LEFT_OUTER_JOIN);
@@ -59,10 +51,14 @@ public class ConsultationDAO {
         pList.add(Projections.groupProperty("spec.titre"));
         criteria.setProjection(pList);
         List<Object[]> result = (List)criteria.list();
+        
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("Afficher le nombre de consultations par spécialité               ");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         for(Object[] object : result){
             System.out.println("Nombre de consultations : " + object[0]);
             System.out.println("Titre de spécialité     : " + (object[1] != null ? object[1] : "[aucune specialité]") );
-            System.out.println("********");
+            System.out.println(" //////////////////////////////////////");
         }
         
         session.close();
@@ -70,5 +66,6 @@ public class ConsultationDAO {
         
 
     }
+
 
 }
