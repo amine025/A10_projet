@@ -1,12 +1,13 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
-* CREATION 17/09/2018
-* AUTHORS: AMINE GHODBANE, AMINE TARHOUNI,ALEXANDER TOULIATOS, GIAN GABRIELE CIAMPA
- */
+--
+--
+--Authors:
+--CIAMPA, Gian Gabriele
+--GHODBANE, Mohammed El Amine
+--TARHOUNI, Mohamed Amine
+--TOULIATOS, Alexander
+--
+--
+
 
 -- INSERTION CATEGORIES
 INSERT INTO CATEGORIES

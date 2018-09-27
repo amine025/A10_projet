@@ -1,20 +1,22 @@
-
 package DAO;
 
 import Entities.Consultation;
-import Entities.ConsultationId;
-import Entities.Docteur;
-import Entities.Specialite;
 import java.util.List;
-import java.util.Set;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.sql.JoinType;
-import projetfinsessiona10gr233.HibernateUtil;
+import app.HibernateUtil;
+//
+//
+// CIAMPA, Gian Gabriele
+// GHODBANE, Mohammed El Amine
+// TARHOUNI, Mohamed Amine
+// TOULIATOS, Alexander
+//
+//
 
 public class ConsultationDAO {
 
@@ -50,22 +52,19 @@ public class ConsultationDAO {
         pList.add(Projections.rowCount());
         pList.add(Projections.groupProperty("spec.titre"));
         criteria.setProjection(pList);
-        List<Object[]> result = (List)criteria.list();
-        
+        List<Object[]> result = (List) criteria.list();
+
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("Afficher le nombre de consultations par spécialité               ");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        for(Object[] object : result){
+        for (Object[] object : result) {
             System.out.println("Nombre de consultations : " + object[0]);
-            System.out.println("Titre de spécialité     : " + (object[1] != null ? object[1] : "[aucune specialité]") );
+            System.out.println("Titre de spécialité     : " + (object[1] != null ? object[1] : "[aucune specialité]"));
             System.out.println(" //////////////////////////////////////");
         }
-        
+
         session.close();
-        
-        
 
     }
-
 
 }
