@@ -3,6 +3,7 @@ package app;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
 //
+// TEAM 2 :
 //
 // CIAMPA, Gian Gabriele
 // GHODBANE, Mohammed El Amine

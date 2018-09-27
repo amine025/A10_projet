@@ -8,6 +8,7 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import app.HibernateUtil;
 //
+// TEAM 2 :
 //
 // CIAMPA, Gian Gabriele
 // GHODBANE, Mohammed El Amine
